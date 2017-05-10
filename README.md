@@ -15,7 +15,7 @@ d888888P                      88b                88b     d888888P
 ## Installation
 
 **Tankobon** has been written and tested on a win32 environment running PHP 5.4.5. It does not need any webserver. 
-It relies on a single external library, ConsoleKit [https://github.com/maximebf/ConsoleKit](https://github.com/maximebf/ConsoleKit). Place the library in the vendor folder or use Composer. Put [SplClassLoader](https://gist.github.com/jwage/221634) in */vendor* as well.
+It relies on a single vendor library, [ConsoleKit](https://github.com/maximebf/ConsoleKit). Place the library in the vendor folder or use Composer. Put [SplClassLoader](https://gist.github.com/jwage/221634) in */vendor* as well.
 
 ```
     {
@@ -31,9 +31,9 @@ It relies on a single external library, ConsoleKit [https://github.com/maximebf/
 - extracting the volume number from the chapter folder name (eg "Vol 01 - chapter 15"), which is the "volume" mode: you have to tell at which character the volume identifier starts and ends (in this case 0 and 6)
 - scanning the source folders for chapter folders (already named and ordered correctly) and packaging volumes knowing how many chapter each volume holds, hence the name "chapter" mode 
 
-You can give instructions to *Tankobon* by creating a *config.json* file somewhere on your disk.
+You can give instructions to **Tankobon** by creating a *config.json* file somewhere on your disk.
 
-Grouping chapters in **volume** mode (remove all comments from the json file!):
+Grouping chapters in *volume* mode (remove all comments from the json file!):
 ```
 {
   "archive_prefix": "SeriesName", //SeriesName_FolderName.cbz CURRENTLY UNSUPPORTED
@@ -49,7 +49,7 @@ Grouping chapters in **volume** mode (remove all comments from the json file!):
   }
 }
 ```
-Grouping chapters in "chapter" mode:
+Grouping chapters in *chapter* mode:
 
 ```
 {
