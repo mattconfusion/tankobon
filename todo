@@ -1,0 +1,98 @@
+                             d8b                d8b                        
+   d8P                       ?88                ?88                        
+d888888P                      88b                88b     d888888P                 
+  ?88'   d888b8b    88bd88b   888  d88' d8888b   888888b  d8888b   88bd88b 
+  88P   d8P' ?88    88P' ?8b  888bd8P' d8P' ?88  88P `?8bd8P' ?88  88P' ?8b
+  88b   88b  ,88b  d88   88P d88888b   88b  d88 d88,  d8888b  d88 d88   88P
+  `?8b  `?88P'`88bd88'   88bd88' `?88b,`?8888P'd88'`?88P'`?8888P'd88'   88b
+ 
+
+FUNZIONAMENTO
+                                                                                                                           
+1.  radunare tutti i capitoli in cartelle per volume a seconda della $jsonconfig->grouping_mode
+      - grouping_mode = "volume":
+            . usare DirectoryIterator (non ricorsivo, primo livello) per parsare le cartelle dei capitoli
+            . fare un substring con start e end da configurazione per individuare il numero del volume dal nome della cartella
+            . creare le cartelle e inserire in una hashtable [nome volume in stringa] -> [percorso cartella] 
+            . spostare ogni capitolo nella cartella nominata con il volume estratto.
+      - grouping_mode = "chapter":
+            . usare DirectoryIterator (non ricorsivo, primo livello) per parsare le cartelle dei capitoli
+            . fare un substring con start e end da configurazione per individuare il numero del capitolo dal nome della cartella
+            . costruire una hashtable con [(int)n°capitolo] [percorso cartella]
+            . creare per ogni elemento $jsonconfig->grouping_mode->chapter_mode->volumes una cartella corrispondente
+            . creare una hash di cartelle volume [nome volume in stringa][percorso cartella]
+            . scorrere $jsonconfig->grouping_mode->chapter_mode->volumes: ciclare sulla hashtable iniziando dal capitolo 
+              start fino al capitolo end incluso.
+            . spostare i capitoli da [percorso cartella] a [cartella volume]  
+	
+
+2.  sanificare tutti i nomi di cartelle e file togliendo caratteri speciali
+      - Usando RecursiveDirectoryIterator per ogni percorso nella hashtable delle cartelle volume fare una regex 
+      su tutti i nomi directory e i nomi file eliminando i caratteri strani. La regex è /[^\x00-\x7F]/ 
+
+3. creare archivi cbr da ogni cartella volume usando un nome standard (stesso modo del  punto 1)
+      - per ogni percorso cartella contenuto nella hashtable dei volumi, creare un archivio zip usando prefisso impostato
+      in $jsonconfig->archive_prefix e con l'estensione decisa in $jsonconfig->archive_extension
+
+JSON CONFIG:
+
+{
+  "archive_prefix": "Neon Genesis Evangelion",
+  "archive_extension": "cbz",
+  "grouping_mode": "chapter",
+  "volume_mode": {
+    "volume_number": {
+      "string_start_index": "10",
+      "string_end_index": "12"
+    },
+    "volume_prefix":"Vol "
+  },
+  "chapter_mode": { 
+    "chapter_number": {
+      "string_start_index": "10",
+      "string_end_index": "12"
+    },
+    "volumes": {
+      "vol 1": {
+        "chapter_start": "1",
+        "chapter_end": "5"
+      },
+      "vol 2": {
+        "chapter_start": "6",
+        "chapter_end": "10"
+      },
+      "vol 3": {
+        "chapter_start": "11",
+        "chapter_end": "15"
+      },
+      "vol 4": {
+        "chapter_start": "16",
+        "chapter_end": "20"
+      },
+      "vol 5": {
+        "chapter_start": "21",
+        "chapter_end": "25"
+      }
+    }
+  }
+}
+
+
+TECH
+
+NB: no composer, no db, no template engine, no web server!
+
+1. Gestione file: php nativa + SPL DirectoryIterator
+2. Scrittura archivi nativa php
+3. Configurazione percorsi, range, stringhe da cercare: config.json 
+4. utilizzo come applicazione console, https://github.com/etopian/php-cli-framework o https://github.com/wp-cli/php-cli-tools o https://github.com/maximebf/ConsoleKit
+   
+
+
+todo:
+
+- make archives: inserire prefix e suffix, nome manga ecc ecc nell'archivio come da config.json 
+- batch process: cancellazione file raggruppati dopo creazione archivio (-cleanup)
+- grouping mode chapter: verificare il codice scritto e testarlo
+- split pages: gestire modalità ltr e rtl e sviluppare lo split delle pagine
+- all commands: creare report di lavorazione in dest folders (es: d:\comics\bakuman\tankobon\tankobon_report_2016_06_01.txt)
