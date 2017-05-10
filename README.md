@@ -1,6 +1,16 @@
+```
+                             d8b                d8b                        
+   d8P                       ?88                ?88                        
+d888888P                      88b                88b     d888888P                 
+  ?88'   d888b8b    88bd88b   888  d88' d8888b   888888b  d8888b   88bd88b 
+  88P   d8P' ?88    88P' ?8b  888bd8P' d8P' ?88  88P `?8bd8P' ?88  88P' ?8b
+  88b   88b  ,88b  d88   88P d88888b   88b  d88 d88,  d8888b  d88 d88   88P
+  `?8b  `?88P'`88bd88'   88bd88' `?88b,`?8888P'd88'`?88P'`?8888P'd88'   88b
+``` 
+
 # Tankobon
 
-**Tankobon** is a small php console app I wrote to package and organize in a single cbz file multiple separate folders of scanned media in order to read them on simple e-reader devices. **Tankobon** also optionally renames the image files using a numeric progression to ensure the correct folders order. 
+**Tankobon** is a small php console app to package and organize in a single cbz file multiple separate folders of scanned media in order to read them on simple e-reader devices. **Tankobon** also optionally renames the image files using a numeric progression to ensure the correct folders order. 
 
 ## Installation
 
@@ -74,8 +84,8 @@ this messy code was written by Matt Confusion.
 - improve Chapter grouping mode;
 - implement split pages command: split double pages by specifying ltr or rtl direction;
 - implement --cleanup option: removes all the uncompressed files (not the source);
-- logging: write the console output to a log file
-- use prefix and suffix when naming archives
+- logging: write the console output to a log file;
+- use prefix,suffix and extension as specified in config.json when creating archives;
 
 
 ## License
