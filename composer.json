@@ -1,0 +1,13 @@
+{
+  	"autoload": {
+	    "psr-4": {
+	      "Commands\\": "app/Commands",
+	      "Config\\": "app/Config",
+	      "Utils\\": "app/Utils"
+	  }
+  },
+    "require": {
+        "maximebf/consolekit": "^1.0",
+        "monolog/monolog": "^1.22"
+    }
+}

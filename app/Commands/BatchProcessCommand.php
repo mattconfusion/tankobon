@@ -27,7 +27,10 @@ class BatchProcessCommand extends CommandBaseClass {
 		$sanitizeCmd = new SanitizeCommand($this->console);
 		$sanitizeCmd->execute(array($this->destDir,$this->destDir),$options);
 		$makeArchivesCmd = new MakeArchivesCommand($this->console);
-		$makeArchivesCmd->execute(array($this->destDir,$this->destDir),$options);
+		$makeArchivesCmd->execute(array($this->destDir,$this->destDir),
+		                          array(Defs::CLI_OPTIONS_ARCHIVE_PREFIX => $this->jsonConfig->archive_prefix,
+		                                Defs::CLI_OPTIONS_ARCHIVE_SUFFIX => $this->jsonConfig->archive_suffix,
+		                                Defs::CLI_OPTIONS_CLEANUP => true));
 		unset($groupCmd,$sanitizeCmd,$makeArchivesCmd);
 	}
 

@@ -188,7 +188,7 @@ d888888P                      88b                88b     d888888P
 		try{
 			$volumeNumberString = substr($folderName, 
 			       $this->jsonConfig->volume_mode->volume_number->string_start_index,
-			       $this->jsonConfig->volume_mode->volume_number->string_end_index);
+			       $this->jsonConfig->volume_mode->volume_number->string_length);
 			if(!$volumeNumberString || $volumeNumberString == ''){
 				$this->writeerr("Volume number not found in folder name $folderName, volume_number object in the config json file.");
 			}

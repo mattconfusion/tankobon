@@ -55,6 +55,17 @@ class FileSystemUtility {
         closedir($dir); 
     }
 
+    public static function removeDirectory($dir) {
+        $it = new \RecursiveDirectoryIterator($dir);
+        $it = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
+        foreach($it as $file) {
+            if ('.' === $file->getBasename() || '..' ===  $file->getBasename()) continue;
+            if ($file->isDir()) rmdir($file->getPathname());
+            else unlink($file->getPathname());
+        }
+        return rmdir($dir);
+    }
+
 
     public static function getNumberOfPaddingChars($elementsCount){
         $floatNumber = (float)"0.$elementsCount";

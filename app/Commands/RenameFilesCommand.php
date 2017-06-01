@@ -34,6 +34,9 @@ class RenameFilesCommand extends CommandBaseClass {
         $di = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS), 
                                              \RecursiveIteratorIterator::SELF_FIRST);
         $padlength = FileSystemUtility::getNumberOfPaddingChars(iterator_count($di));
+
+        $this->writeln(iterator_count($di).' files found.');
+
         $count = 1;
 
         $folderPrefix = null;
@@ -45,6 +48,8 @@ class RenameFilesCommand extends CommandBaseClass {
                 rename($name, $fio->getPath() . DIRECTORY_SEPARATOR .$pageNumber.'.'.pathinfo($fio->getFilename(),PATHINFO_EXTENSION));
                 ++$count;
                 unset($pageNumber);
+            }else{
+                $this->writeln("Now on folder $name, count is $count");
             }
         }
 

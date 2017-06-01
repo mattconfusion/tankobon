@@ -28,23 +28,22 @@ It relies on a single vendor library, [ConsoleKit](https://github.com/maximebf/C
 ## Usage
 
 *Tankobon* groups chapters in volumes in two ways:
-- extracting the volume number from the chapter folder name (eg "Vol 01 - chapter 15"), which is the "volume" mode: you have to tell at which character the volume identifier starts and ends (in this case 0 and 6)
-- scanning the source folders for chapter folders (already named and ordered correctly) and packaging volumes knowing how many chapter each volume holds, hence the name "chapter" mode 
+- extracting the volume number from the chapter folder name (eg "Vol 01 - chapter 15"), which is the *volume* mode: you have to tell at which character the volume identifier starts and its length (in this case 0 and 6)
+- scanning the source folders for chapter folders (already named and ordered correctly) and packaging volumes knowing how many chapter each volume holds, hence the name *chapter* mode 
 
 You can give instructions to **Tankobon** by creating a *config.json* file somewhere on your disk.
 
 Grouping chapters in *volume* mode (remove all comments from the json file!):
 ```
 {
-  "archive_prefix": "SeriesName", //SeriesName_FolderName.cbz CURRENTLY UNSUPPORTED
-  "archive_suffix": "tankobon", //FolderName_tankobon.cbz CURRENTLY UNSUPPORTED
-  "archive_extension": "cbz", //FolderName.cbz CURRENTLY UNSUPPORTED
+  "archive_prefix": "SeriesName", 
+  "archive_suffix": "tankobon", 
   "grouping_mode": "volume", // mode for grouping, "volume" or "chapter"
   "rename_files_counter":"unique", //numeric progressive name for images, cross-folders
   "volume_mode": {
     "volume_number": {
       "string_start_index": "0", 
-      "string_end_index": "6"
+      "string_length": "6"
     }
   }
 }
@@ -72,20 +71,18 @@ Then use an ANSI console (it's for the cool colors, if you're using win you can 
 ```
 php path/to/tankobon/tankobon.php batch-process path/to/source/folders path/to/destination --config=path/to/config.json
 ```
-optional flags like **--sanitize** and **--rename** allow you to sanitize filenames or renaming them using a progressive number.
+optional flags like *--sanitize* and *--rename* allow you to sanitize filenames or renaming them using a progressive number.
 
 ## Credits
 
-this messy code was written by Matt Confusion.
+this messy code was written by Matteo Radice.
 
 ## TODO
 
 - test this on other OS;
 - improve Chapter grouping mode;
 - implement split pages command: split double pages by specifying ltr or rtl direction;
-- implement --cleanup option: removes all the uncompressed files (not the source);
 - logging: write the console output to a log file;
-- use prefix,suffix and extension as specified in config.json when creating archives;
 
 
 ## License
