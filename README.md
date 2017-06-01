@@ -14,16 +14,7 @@ d888888P                      88b                88b     d888888P
 
 ## Installation
 
-**Tankobon** has been written and tested on a win32 environment running PHP 5.4.5. It does not need any webserver. 
-It relies on a single vendor library, [ConsoleKit](https://github.com/maximebf/ConsoleKit). Place the library in the vendor folder or use Composer. Put [SplClassLoader](https://gist.github.com/jwage/221634) in */vendor* as well.
-
-```
-    {
-        "require": {
-            "maximebf/consolekit": ">=1.0.0"
-        }
-    } 
-```
+**Tankobon** relies on Composer for its dependencies. Be sure to run a composer update command in the **Tankobon** root folder. 
 
 ## Usage
 
