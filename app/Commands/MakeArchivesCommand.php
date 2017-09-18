@@ -28,6 +28,11 @@ class MakeArchivesCommand extends CommandBaseClass {
             $this->cleanupAfter = true;
         }
 
+        if(isset($options[Defs::CLI_OPTIONS_SANITIZE])){
+            $sanitizeCmd = new SanitizeCommand($this->console);
+            $sanitizeCmd->execute(array($this->sourceDir),$options);
+        }
+
         $this->zipUtility = new ZipArchiveUtility();
         $this->makeArchivesFromFolders($this->sourceDir, $this->destDir, $this->zipUtility);
         $this->writeInABox("Make archives from folders completed.",\ConsoleKit\Colors::WHITE, \ConsoleKit\Colors::GREEN);

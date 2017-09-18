@@ -29,7 +29,7 @@ class FileSystemUtility {
      * @param string $regexPattern
      * @return string
      */
-    public static function sanitizeNameRegex($name, $regexPattern = '/[^\x00-\x7F]/') {
+    public static function sanitizeNameRegex($name, $regexPattern = '/[^a-zA-Z0-9_\- .]/') {
         return preg_replace($regexPattern, '', $name);
     }
 

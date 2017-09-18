@@ -8,6 +8,7 @@ class Defs {
 	const CLI_OPTIONS_RENAME = 'rename';
 	const CLI_OPTIONS_SPLIT = 'split';
 	const CLI_OPTIONS_CLEANUP = 'cleanup';
+	const CLI_OPTIONS_SANITIZE = 'sanitize';
 	const CLI_OPTIONS_ARCHIVE_PREFIX = 'archive-prefix';
 	const CLI_OPTIONS_ARCHIVE_SUFFIX = 'archive-suffix';
 	const CONFIG_GROUPING_MODE_VOLUME = 'volume';

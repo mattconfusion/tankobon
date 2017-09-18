@@ -12,7 +12,7 @@ class BatchProcessCommand extends CommandBaseClass {
 		$this->requireJsonConfig();
 		$groupCmd = new GroupChaptersCommand($this->console);
 		$groupCmd->execute(array($this->sourceDir,$this->destDir),$options);
-		//launch split pages command according to flag -split
+		//launch split pages command according to flag --split
 		if(isset($options[Defs::CLI_OPTIONS_SPLIT])){
 			$splitCmd = new SplitPagesCommand($this->console);
 			$splitCmd->execute(array($this->destDir),$options);
