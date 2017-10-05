@@ -38,8 +38,8 @@ class MakeArchivesCommand extends CommandBaseClass {
         $this->writeInABox("Make archives from folders completed.",\ConsoleKit\Colors::WHITE, \ConsoleKit\Colors::GREEN);
     }
 
-    protected function getCbzName($folderName,$prefix='',$suffix='_tankobon') {
-        return "{$prefix}{$folderName}{$suffix}.cbz";
+    protected function getCbzName($folderName,$prefix='',$suffix='tankobon') {
+        return "{$prefix}_{$folderName}_{$suffix}.cbz";
     }
 
     /**

@@ -71,6 +71,7 @@ this messy code was written by Matteo Radice.
 ## TODO
 
 - test this on other OS;
+- build tool to create config files;
 - improve Chapter grouping mode;
 - implement split pages command: split double pages by specifying ltr or rtl direction;
 - logging: write the console output to a log file;
