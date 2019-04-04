@@ -4,6 +4,7 @@ namespace Commands;
 
 use Config\Defs;
 use Utils\RandomUtility;
+use Utils\LoggingUtility;
 
 class CommandBaseClass extends \ConsoleKit\Command
 {
@@ -11,10 +12,16 @@ class CommandBaseClass extends \ConsoleKit\Command
     protected $sourceDir;
     protected $destDir;
 
+    /**
+     * @var LoggingUtility
+     */
+    protected $logger;
+
     public function execute(array $args, array $options = array())
     {
         $this->jsonConfig = $this->getJsonConfigFromOptions($options);
         $this->getSourceAndDestinationFromArgs($args);
+        $logger = LoggingUtility::getLogger($this->destDir);
     }
 
 
@@ -76,6 +83,16 @@ class CommandBaseClass extends \ConsoleKit\Command
             $this->writeWarning('No config json file specified in --config option.');
             return null;
         }
+    }
+
+    /**
+     * Write a simple white line message to the console
+     * @param string Message of the info line
+     */
+    public function writeInfo($message)
+    {
+        $this->writeln($message, \ConsoleKit\Colors::WHITE);
+        $this->logger->logInfo($message);
     }
 
     /**
