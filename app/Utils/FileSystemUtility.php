@@ -2,7 +2,8 @@
 
 namespace Utils;
 
-class FileSystemUtility {
+class FileSystemUtility
+{
 
     /**
      * Sanitize name of a file or a dir through iconv
@@ -13,7 +14,8 @@ class FileSystemUtility {
      * @return string
      * @throws \Exception if iconv returns false
      */
-    public static function sanitizeNameIconv($name, $outputCharset = 'ASCII//TRANSLIT', $inputCharset = 'UTF-8', $locale = 'en_GB') {
+    public static function sanitizeNameIconv($name, $outputCharset = 'ASCII//TRANSLIT', $inputCharset = 'UTF-8', $locale = 'en_GB')
+    {
         setlocale(LC_ALL, $locale);
         $result = iconv($inputCharset, $outputCharset, $name);
         if ($result) {
@@ -29,7 +31,8 @@ class FileSystemUtility {
      * @param string $regexPattern
      * @return string
      */
-    public static function sanitizeNameRegex($name, $regexPattern = '/[^a-zA-Z0-9_\- .]/') {
+    public static function sanitizeNameRegex($name, $regexPattern = '/[^a-zA-Z0-9_\- .]/')
+    {
         return preg_replace($regexPattern, '', $name);
     }
 
@@ -37,41 +40,47 @@ class FileSystemUtility {
      * Recursive copy of files and folders
      * @param  string $source Source from which copy
      * @param  string $dest   Destination of the copy
-     * @return 
+     * @return
      */
-    public static function recursiveCopy($source,$dest){
-        $dir = opendir($source); 
-        @mkdir($dest); 
-        while(false !== ( $file = readdir($dir)) ) { 
-            if (( $file != '.' ) && ( $file != '..' )) { 
-                if ( is_dir($source . DIRECTORY_SEPARATOR . $file) ) { 
-                    self::recursiveCopy($source . DIRECTORY_SEPARATOR . $file,$dest . DIRECTORY_SEPARATOR . $file); 
-                } 
-                else { 
-                    copy($source . DIRECTORY_SEPARATOR . $file,$dest . DIRECTORY_SEPARATOR . $file); 
-                } 
-            } 
-        } 
-        closedir($dir); 
+    public static function recursiveCopy($source, $dest)
+    {
+        $dir = opendir($source);
+        @mkdir($dest);
+        while (false !== ($file = readdir($dir))) {
+            if (($file != '.') && ($file != '..')) {
+                if (is_dir($source . DIRECTORY_SEPARATOR . $file)) {
+                    self::recursiveCopy($source . DIRECTORY_SEPARATOR . $file, $dest . DIRECTORY_SEPARATOR . $file);
+                } else {
+                    copy($source . DIRECTORY_SEPARATOR . $file, $dest . DIRECTORY_SEPARATOR . $file);
+                }
+            }
+        }
+        closedir($dir);
     }
 
-    public static function removeDirectory($dir) {
+    public static function removeDirectory($dir)
+    {
         $it = new \RecursiveDirectoryIterator($dir);
         $it = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($it as $file) {
-            if ('.' === $file->getBasename() || '..' ===  $file->getBasename()) continue;
-            if ($file->isDir()) rmdir($file->getPathname());
-            else unlink($file->getPathname());
+        foreach ($it as $file) {
+            if ('.' === $file->getBasename() || '..' ===  $file->getBasename()) {
+                continue;
+            }
+            if ($file->isDir()) {
+                rmdir($file->getPathname());
+            } else {
+                unlink($file->getPathname());
+            }
         }
         return rmdir($dir);
     }
 
 
-    public static function getNumberOfPaddingChars($elementsCount){
+    public static function getNumberOfPaddingChars($elementsCount)
+    {
         $floatNumber = (float)"0.$elementsCount";
         $range = (int) $elementsCount / $floatNumber;
         $pads = substr_count((string)$range, '0')+1;
         return $pads;
     }
-
 }
