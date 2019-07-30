@@ -4,15 +4,16 @@ namespace Commands;
 
 use Utils\ZipArchiveUtility;
 
-class ExtractArchivesCommand extends CommandBaseClass {
-
+class ExtractArchivesCommand extends CommandBaseClass
+{
     protected $zipUtility;
 
-    public function execute(array $args, array $options = array()) {
-        parent::execute($args,$options);
+    public function execute(array $args, array $options = array())
+    {
+        parent::execute($args, $options);
         $this->zipUtility = new ZipArchiveUtility();
         $this->extractArchivesFoundInFolder($this->sourceDir, $this->destDir, $this->zipUtility);
-        $this->writeInABox("Extract archives to folders completed.",\ConsoleKit\Colors::WHITE, \ConsoleKit\Colors::GREEN);
+        $this->writeInABox("Extract archives to folders completed.", \ConsoleKit\Colors::WHITE, \ConsoleKit\Colors::GREEN);
     }
 
     /**
@@ -21,17 +22,18 @@ class ExtractArchivesCommand extends CommandBaseClass {
      * @param string $destDir
      * @param \Utils\ZipArchiveUtility $zipArchiveUtility
      */
-    protected function extractArchivesFoundInFolder($sourceDir, $destDir, ZipArchiveUtility $zipArchiveUtility) {
+    protected function extractArchivesFoundInFolder($sourceDir, $destDir, ZipArchiveUtility $zipArchiveUtility)
+    {
         $this->writeln("Extract archives of folders found at $sourceDir", \ConsoleKit\Colors::CYAN);
         $foldersCount = 0;
 
         if (!is_dir($destDir)) {
             $this->writeln("..$destDir not found, creating it", \ConsoleKit\Colors::YELLOW);
             $mkdirResult = mkdir($destDir, '0777', true);
-            if(!$mkdirResult){
+            if (!$mkdirResult) {
                 $this->writeErrorBox("Error while creating destination directory.");
                 exit;
-            }else{
+            } else {
                 $this->writeHighlight("+ $destDir successfully created.", \ConsoleKit\Colors::GREEN);
             }
         }
@@ -52,5 +54,4 @@ class ExtractArchivesCommand extends CommandBaseClass {
         }
         $this->writeSuccess("$foldersCount archives extracted.");
     }
-
 }

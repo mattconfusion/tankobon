@@ -2,7 +2,6 @@
 
 namespace Config;
 
-class Config {
-
-	
+class Config
+{
 }

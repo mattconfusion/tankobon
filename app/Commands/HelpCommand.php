@@ -19,14 +19,14 @@ d888888P                      88b                88b     d888888P
   `?8b  `?88P'`88bd88'   88bd88' `?88b,`?8888P'd88'`?88P'`?8888P'd88'   88b";
             $this->writeln("$logo\n", RandomUtility::generateRandomColorInt() | \ConsoleKit\Colors::BOLD);
             $this->writeln('Available commands:', \ConsoleKit\Colors::BLACK | \ConsoleKit\Colors::BOLD);
-            foreach ($this->console->getCommands() as $name => $fqdn) {                
+            foreach ($this->console->getCommands() as $name => $fqdn) {
                 if ($fqdn !== __CLASS__) {
                     $this->writeln($formater->format($name));
                 }
             }
             $scriptName = basename($_SERVER['SCRIPT_FILENAME']);
             //$this->writeln("Use './$scriptName help command' for more info");
-         }
+        }
         // else {
         //     $commandFQDN = '\\'.$this->console->getCommand($args[0]);
         //     $help = \ConsoleKit\Help::fromFQDN($commandFQDN, \ConsoleKit\Utils::get($args, 1));
